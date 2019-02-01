@@ -1,0 +1,97 @@
+@media screen and (max-width: 800px) {
+    h1 {
+        font-size: 6vw;
+    }
+}
+
+body {
+  font-family: arial;
+  font-size: 1.03em;
+}
+
+/* MAIN TITLE AND PICTURE */
+main {
+  margin-top: em;
+  overflow: hidden;
+}
+
+#mainTitle {
+  position: absolute;
+  margin-top: -20%;
+  padding-left: 37.5%;
+}
+
+#barDesk {
+  opacity: 0.75;
+  width: 100%;
+  height: 20vw;
+}
+
+/* BURGER SELECTION */
+#Burgers {
+  background-color: black;
+  color: white;
+  padding-left: 1.05em;
+  /* BORDER */
+  border: dashed;
+  border-color: red;
+  border-radius: 1em;
+}
+
+/* table */
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  background-color: #fff;
+  color: #444;
+}
+
+.box {
+  background-color: black;
+  color: #fff;
+  padding: 20px;
+  font-size: 100%;
+  text-align: center;
+}
+
+.a {
+  grid-column: 1 / span 4
+}
+
+.b {
+  grid-column: 5
+
+}
+
+.c {
+  grid-column: 6
+
+}
+
+table {
+  width: 100%;
+}
+
+.lactose_gluten {
+  font-weight: bold;
+}
+
+/* CUSTOMER INFORMATION */
+
+#CustomerInfo {
+  padding-left: 1.05em;
+  /* BORDER */
+  border: dashed;
+  border-color: limegreen;
+  border-radius: 1em;
+}
+
+/* BUTTON */
+button {
+  margin-top: 1.5em;
+}
+
+button:hover {
+  background-color: grey;
+}
