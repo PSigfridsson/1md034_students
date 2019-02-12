@@ -1,109 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <title>BurgerHeaven</title>
-  <meta charset="utf-8"/>
-  <!-- <link rel="stylesheet" type="text/css" href="/css/reset.css"> -->
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <script src="https://vuejs.org/js/vue.js"></script>
-  <script src="js/js_script.js"></script>
-  <script src="js/vue_script.js"></script>
-</head>
+  <head>
+    <title>BurgerHeaven</title>
+    <meta charset="utf-8"/>
+    <!-- <link rel="stylesheet" type="text/css" href="/css/reset.css"> -->
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="https://vuejs.org/js/vue.js"></script>
+    <script src="js/js_script.js" defer></script>
+    <script src="js/vue_script.js" defer></script>
+  </head>
 
-<body>
-  <main>
-    <img src="http://www.apcconcept.com/wp-content/uploads/2014/07/Glamorous-Bar-Design-that-Complements-the-Hotel-woth-Marble-Desk.jpg" alt="Span" title="Bar desk" id="barDesk">
-    <h1 id="mainTitle">Welcome to BurgerHeaven Online</h1>
-  </main>
+  <body>
+    <main>
+      <img src="http://www.apcconcept.com/wp-content/uploads/2014/07/Glamorous-Bar-Design-that-Complements-the-Hotel-woth-Marble-Desk.jpg" alt="Span" title="Bar desk" id="barDesk">
+      <h1 id="mainTitle">Welcome to BurgerHeaven Online</h1>
+    </main>
 
-  <!-- TABLE SECTION -->
-  <section id="Burgers">
-    <h1>Select Burger</h1>
-    <p>This is where you execute burger selection</p>
-    <div class="wrapper">
-      <div class="box a">
-        <h3>The Fire Burger</h3>
-        <img src="https://images4.alphacoders.com/871/871251.jpg" alt="Span" title="The Fire Burger" width="200">
-        <ul>
-          <li>Kobe beef of the highest quality</li>
-          <li>Covered in fancy cheese <span class="lactose_gluten">(contains lactose)</span></li>
-          <li>Cold-leavened sourdough bread <span class="lactose_gluten">(contains gluten)</span></li>
-        </ul>
+    <!-- TABLE SECTION -->
+    <section id="Burgers">
+      <h1>Select Burger</h1>
+      <p>This is where you execute burger selection</p>
+
+      <div class="wrapper" >
+        <div class="box" v-for="burger in burgers" >
+          <h3> {{ burger.getName() }} </h3>
+          <img :src=burger.img alt="Span" title="The Fire Burger" width="200">          
+          <ul id="ingr" v-for="ingr in burger.ingr">
+            <li> {{ ingr }} </li>
+          </ul>
+        <p class="lactose_gluten"> Contains
+          <span v-if="burger.lactose">lactose </span>
+          <span v-if="burger.gluten && burger.lactose">&</span>
+          <span v-if="burger.gluten">gluten </span>
+        </p>
+        </div>
       </div>
+    </section
+>
+    <section id="CustomerInfo">
+      <h1>Customer information</h1>
+      <p>This is where you provide necessary information</p>
+      <form>
+        <h3>Delivery information</h3>
+        <!-- delivery info -->
+        <p>
+          <label for="Full name">Full name</label><br>
+          <input type="text" id="full name" name="fn" required="required" placeholder="First- and Last name">
+        </p>
+        <p>
+          <label for="email">E-mail</label><br>
+          <input type="email" id="email" name="em" required="required" placeholder="E-mail address">
+        </p>
+        <p>
+          <label for="Street">Street</label><br>
+          <input type="text" id="street" name="st" required="required" placeholder="Street name">
+        </p>
+        <p>
+          <label for="House">House</label><br>
+          <input type="number" id="house" name="hs" required="required" placeholder="House number">
+        </p>
 
-      <div class="box b">
-        <h3>Fried Turkey Burger</h3>
-        <img src="https://assets.epicurious.com/photos/5748b2ed5a5fbbae31ae4af9/master/pass/shutterstock_148839410.jpg" alt="Span" title="Fried Turkey Burger" width="200">
-        <ul>
-          <li>Deep fried Turkish turkey</li>
-          <li>A slice of pink stuff <span class="lactose_gluten">(contains lactose)</span></li>
-          <li>Shake-n-bake gluten-free bread</li>
-        </ul>
-      </div>
+        <!-- Payment options - drop down -->
+        <p>
+          <label for="payment options">Payment options</label><br>
+          <select id="recipient" name="rcp">
+            <option>Paypal</option>
+            <option>Bitcoin</option>
+            <option selected="selected">Credit card</option>
+            <option>Gift card</option>
+            <option>Swish</option>
+          </select>
+        </p>
 
-      <div class="box c">
-        <h3>A Double w/ cheese</h3>
-        <img src="https://www.foodora.se/wp-content/uploads/sites/11/2016/12/janis-tripping-mushroom-burger-1920x1280.jpg" alt="Span" title="A Double w/ cheese" width="200">
-        <ul>
-          <li>Two layers of pure meat</li>
-          <li>Lots of yummy cheese <span class="lactose_gluten">(contains lactose)</span></li>
-          <li>Sweet bread bun <span class="lactose_gluten">(contains gluten)</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
+        <!-- Radio buttons -->
+        <label for="gender">Gender</label><br>
+        <input type="radio" name="gender" value="male"> Male<br>
+        <input type="radio" name="gender" value="female"> Female<br>
+        <input type="radio" name="gender" value="non-binary"> Non-binary<br>
+        <input type="radio" name="gender" value="Undisclosed"> Undisclosed<br>
 
-  <section id="CustomerInfo">
-    <h1>Customer information</h1>
-    <p>This is where you provide necessary information</p>
-    <form>
-      <h3>Delivery information</h3>
-      <!-- delivery info -->
-      <p>
-        <label for="Full name">Full name</label><br>
-        <input type="text" id="full name" name="fn" required="required" placeholder="First- and Last name">
-      </p>
-      <p>
-        <label for="email">E-mail</label><br>
-        <input type="email" id="email" name="em" required="required" placeholder="E-mail address">
-      </p>
-      <p>
-        <label for="Street">Street</label><br>
-        <input type="text" id="street" name="st" required="required" placeholder="Street name">
-      </p>
-      <p>
-        <label for="House">House</label><br>
-        <input type="number" id="house" name="hs" required="required" placeholder="House number">
-      </p>
+      </form>
+    </section>
+    
+    <button type="submit"><img src="http://www.copiasbarquillo.com/wp-content/uploads/2018/03/impresion-digital-madrid-barquillo.jpg" width="30"> Place my order</button>
 
-      <!-- Payment options - drop down -->
-      <p>
-        <label for="payment options">Payment options</label><br>
-        <select id="recipient" name="rcp">
-          <option>Paypal</option>
-          <option>Bitcoin</option>
-          <option selected="selected">Credit card</option>
-          <option>Gift card</option>
-          <option>Swish</option>
-        </select>
-      </p>
-
-      <!-- Radio buttons -->
-      <label for="gender">Gender</label><br>
-      <input type="radio" name="gender" value="male"> Male<br>
-      <input type="radio" name="gender" value="female"> Female<br>
-      <input type="radio" name="gender" value="non-binary"> Non-binary<br>
-      <input type="radio" name="gender" value="Undisclosed"> Undisclosed<br>
-
-    </form>
-  </section>
-
-  <div id="myID"></div>
-  <button type="submit"><img src="http://www.copiasbarquillo.com/wp-content/uploads/2018/03/impresion-digital-madrid-barquillo.jpg" width="30"> Place my order</button>
-
-  <!-- Footer code -->
-  <hr>
-  <footer>&copy; 2019 Hypothetical Burgers Inc.</footer>
-</body>
+    <!-- Footer code -->
+    <hr>
+    <footer>&copy; 2019 Hypothetical Burgers Inc.</footer>
+  </body>
 </html>
