@@ -1,92 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <title>BurgerHeaven</title>
-    <meta charset="utf-8"/>
-    <!-- <link rel="stylesheet" type="text/css" href="/css/reset.css"> -->
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="https://vuejs.org/js/vue.js"></script>
-    <script src="js/js_script.js" defer></script>
-    <script src="js/vue_script.js" defer></script>
-  </head>
+<head>
+  <title>BurgerHeaven</title>
+  <meta charset="utf-8"/>
+  <!-- <link rel="stylesheet" type="text/css" href="/css/reset.css"> -->
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <script src="https://vuejs.org/js/vue.js"></script>
+  <script src="js/menu.js" defer></script>
+  <script src="js/js_script.js" defer></script>
+  <script src="js/vue_script.js" defer></script>
+</head>
 
-  <body>
-    <main>
-      <img src="http://www.apcconcept.com/wp-content/uploads/2014/07/Glamorous-Bar-Design-that-Complements-the-Hotel-woth-Marble-Desk.jpg" alt="Span" title="Bar desk" id="barDesk">
-      <h1 id="mainTitle">Welcome to BurgerHeaven Online</h1>
-    </main>
+<body>
+  <main>
+    <img src="http://www.apcconcept.com/wp-content/uploads/2014/07/Glamorous-Bar-Design-that-Complements-the-Hotel-woth-Marble-Desk.jpg" alt="Span" title="Bar desk" id="barDesk">
+    <h1 id="mainTitle">Welcome to BurgerHeaven Online</h1>
+  </main>
 
-    <!-- TABLE SECTION -->
-    <section id="Burgers">
-      <h1>Select Burger</h1>
-      <p>This is where you execute burger selection</p>
+  <!-- TABLE SECTION -->
+  <section id="Burgers">
+    <h1>Select Burger</h1>
+    <p>This is where you execute burger selection</p>
 
-      <div class="wrapper" >
-        <div class="box" v-for="burger in burgers" >
-          <h3> {{ burger.getName() }} </h3>
-          <img :src=burger.img alt="Span" title="The Fire Burger" width="200">          
-          <ul id="ingr" v-for="ingr in burger.ingr">
-            <li> {{ ingr }} </li>
-          </ul>
+    <div class="wrapper" >
+      <div class="box" v-for="burger in burgers" >
+        <h3> {{ burger.name }} <input type="checkbox" :value=burger.name v-model="checkedBurgers"></h3>
+        <img :src=burger.img alt="Span" :title=burger.name width="200">
+        <ul id="ingr" v-for="ingr in burger.ingr">
+          <li> {{ ingr }} </li>
+        </ul>
         <p class="lactose_gluten"> Contains
           <span v-if="burger.lactose">lactose </span>
           <span v-if="burger.gluten && burger.lactose">&</span>
           <span v-if="burger.gluten">gluten </span>
         </p>
-        </div>
       </div>
-    </section
->
-    <section id="CustomerInfo">
-      <h1>Customer information</h1>
-      <p>This is where you provide necessary information</p>
-      <form>
-        <h3>Delivery information</h3>
-        <!-- delivery info -->
-        <p>
-          <label for="Full name">Full name</label><br>
-          <input type="text" id="full name" name="fn" required="required" placeholder="First- and Last name">
-        </p>
-        <p>
-          <label for="email">E-mail</label><br>
-          <input type="email" id="email" name="em" required="required" placeholder="E-mail address">
-        </p>
-        <p>
-          <label for="Street">Street</label><br>
-          <input type="text" id="street" name="st" required="required" placeholder="Street name">
-        </p>
-        <p>
-          <label for="House">House</label><br>
-          <input type="number" id="house" name="hs" required="required" placeholder="House number">
-        </p>
+    </div>
+  </section>
+  <section id="CustomerInfo">
+    <h1>Customer information</h1>
+    <p>This is where you provide necessary information</p>
+    <form>
+      <h3>Delivery information</h3>
+      <!-- delivery info -->
+      <p>
+        <label for="Full name">Full name</label><br>
+        <input type="text" id="full name" name="fn" required="required" placeholder="First- and Last name">
+      </p>
+      <p>
+        <label for="email">E-mail</label><br>
+        <input type="email" id="email" name="em" required="required" placeholder="E-mail address">
+      </p>
+      <p>
+        <label for="Street">Street</label><br>
+        <input type="text" id="street" name="st" required="required" placeholder="Street name">
+      </p>
+      <p>
+        <label for="House">House</label><br>
+        <input type="number" id="house" name="hs" required="required" placeholder="House number">
+      </p>
 
-        <!-- Payment options - drop down -->
-        <p>
-          <label for="payment options">Payment options</label><br>
-          <select id="recipient" name="rcp">
-            <option>Paypal</option>
-            <option>Bitcoin</option>
-            <option selected="selected">Credit card</option>
-            <option>Gift card</option>
-            <option>Swish</option>
-          </select>
-        </p>
+      <!-- Payment options - drop down -->
+      <p>
+        <label for="payment options">Payment options</label><br>
+        <select id="recipient" name="rcp">
+          <option>Paypal</option>
+          <option>Bitcoin</option>
+          <option selected="selected">Credit card</option>
+          <option>Gift card</option>
+          <option>Swish</option>
+        </select>
+      </p>
 
-        <!-- Radio buttons -->
-        <label for="gender">Gender</label><br>
-        <input type="radio" name="gender" value="male"> Male<br>
-        <input type="radio" name="gender" value="female"> Female<br>
-        <input type="radio" name="gender" value="non-binary"> Non-binary<br>
-        <input type="radio" name="gender" value="Undisclosed"> Undisclosed<br>
+      <!-- Radio buttons -->
+      <label for="gender">Gender</label><br>
+      <input type="radio" name="gender" value="male"> Male<br>
+      <input type="radio" name="gender" value="female"> Female<br>
+      <input type="radio" name="gender" value="non-binary"> Non-binary<br>
+      <input type="radio" name="gender" value="Undisclosed"> Undisclosed<br>
 
-      </form>
-    </section>
-    
-    <button type="submit"><img src="http://www.copiasbarquillo.com/wp-content/uploads/2018/03/impresion-digital-madrid-barquillo.jpg" width="30"> Place my order</button>
+    </form>
+  </section>
 
-    <!-- Footer code -->
-    <hr>
-    <footer>&copy; 2019 Hypothetical Burgers Inc.</footer>
-  </body>
+  <div id="buttonArea">
+    <button v-on:click="submitForm" type="submit"><img src="http://www.copiasbarquillo.com/wp-content/uploads/2018/03/impresion-digital-madrid-barquillo.jpg" width="30"> Place my order</button>
+    <div id="formData">
+    </div>
+  </div>
+  <!-- Footer code -->
+  <hr>
+  <footer>&copy; 2019 Hypothetical Burgers Inc.</footer>
+</body>
 </html>
