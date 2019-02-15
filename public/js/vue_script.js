@@ -1,55 +1,81 @@
+/*jslint es5:true, indent: 2 */
+/*global Vue, io */
+/* exported vm */
+'use strict';
+var socket = io();
+
 var vm = new Vue({
-  el: '#Burgers',
-  data: {
-    burgers: food,
-    checkedBurgers: []
-  }
-})
+    el: '#el',
+    data: {
+        customerInfo: [],
+        burgers: food,
+        checkedBurgers: [],
+        orders: {},
+        orderId: "",
+        details: {x: -100, y: -100},
+        idForOrders: 0,
+    },
+    methods: {
+        submitForm: function (event) {
 
-var vm1 = new Vue({
-  el: '#buttonArea',
-  data: {
-    customerInfo: []
-  },
-  methods: {
-    submitForm: function (event) {
+            document.getElementById("formData").innerHTML = "";
 
-      document.getElementById("formData").innerHTML = "";
+            var name = document.getElementById("full name").value;
+            var email = document.getElementById("email").value;
 
-      var name = document.getElementById("full name").value;
-      var email = document.getElementById("email").value;
-      var street = document.getElementById("street").value;
-      var house = document.getElementById("house").value;
+            // checking radio buttons.
+            var radios = document.getElementsByName('gender');
+            for (var i = 0, length = radios.length; i < length; i++)
+            {
+                if (radios[i].checked)
+                {
+                    var gender = radios[i].value;
+                    break;
+                }
+            }
 
-      // checking radio buttons.
-      var radios = document.getElementsByName('gender');
-      for (var i = 0, length = radios.length; i < length; i++)
-      {
-        if (radios[i].checked)
-        {
-          var gender = radios[i].value;
-          break;
+            var paymentOption = document.getElementById("recipient").value;
+            // Checking checkboxes for burgers
+            var burgers = this.checkedBurgers;
+            if(this.checkedBurgers.length == 0){
+                alert("No burger/burgers are choosen");
+                return;
+            }
+            // Sets the array of custommerInfo
+            this.customerInfo = [name, email, paymentOption, gender, burgers];
+
+            // Checks if the form is correctly filled.
+            for (i = 0; i < this.customerInfo.length - 1; i++) {
+                if(this.customerInfo[i].length == 0){
+                    alert("You need to fill in the form correctly")
+                    this.customerInfo = [];
+                    return -1;
+                }
+            }
+            document.getElementById("formData").innerHTML = this.customerInfo;
+            return 0;
+        },
+        getNext: function () {
+            return this.idForOrders += 1;
+        },
+        addOrder: function (event) {
+            socket.emit("addOrder", { orderId: this.getNext(),
+                                      details: this.details,
+                                      customerItems: this.customerInfo
+                                    });
+        },
+        displayOrder: function (event) {
+            var offset = {x: event.currentTarget.getBoundingClientRect().left,
+                          y: event.currentTarget.getBoundingClientRect().top};
+            this.orderId = "T";
+            this.details = { x: event.clientX - 10 - offset.x,
+                             y: event.clientY - 10 - offset.y
+                           };
+        },
+        send: function (event) {
+            if(this.submitForm() == 0){
+                this.addOrder();
+            }
         }
-      }
-
-      var paymentOption = document.getElementById("recipient").value;
-      // Checking checkboxes for burgers
-      var burgers = vm.checkedBurgers;
-      if(vm.checkedBurgers.length == 0){
-        alert("No burger/burgers are choosen");        
-      }
-      // Sets the array of custommerInfo
-      vm1.customerInfo = [name, email, street, house, paymentOption, gender, burgers];
-
-      // Checks if the form is correctly filled.
-      for (i = 0; i < vm1.customerInfo.length - 1; i++) {
-        if(vm1.customerInfo[i].length == 0){
-          alert("You need to fill in the form correctly")
-          //vm1.customerInfo = [];
-          return;
-        }
-      }
-      document.getElementById("formData").innerHTML = vm1.customerInfo;
     }
-  }
 })
